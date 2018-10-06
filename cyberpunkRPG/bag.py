@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 from pathlib import Path
 from prettytable import PrettyTable
-from .item import Item
+from .items import Item
 class Bag:
 	def __init__(self, content = []):
 		self.content = content
