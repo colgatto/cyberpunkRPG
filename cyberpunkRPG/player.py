@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-import json, math
+import json, math, os
 from pathlib import Path
 from .bag import Bag
 
@@ -44,7 +44,8 @@ class Player:
 
 	def __init__(self, name):
 		self.name = name
-		if Path('players/' + self.name + '.json').is_file():
+		self.dataPath = os.getcwd() + '\\players\\' + self.name + '.json'
+		if Path(self.dataPath).is_file():
 			self.loadFromJson()
 		else:
 			self.malus = 0
@@ -96,7 +97,7 @@ class Player:
 		return self.stat['MOV'] * 3
 
 	def loadFromJson(self):
-		with open('players/' + self.name + '.json', 'r') as f:
+		with open(self.dataPath, 'r') as f:
 			data = json.load(f)
 			self.malus = data['malus']
 			self.stat = data['stat']
@@ -104,7 +105,7 @@ class Player:
 			self.bag = Bag(data['bag'])
 
 	def saveToJson(self):
-		with open('players/' + self.name + '.json', 'w') as f:
+		with open(self.dataPath, 'w') as f:
 			f.write(json.dumps({
 				"malus": self.malus,
 				"stat": self.stat,
