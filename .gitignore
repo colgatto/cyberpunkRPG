@@ -30,6 +30,9 @@ MANIFEST
 #miei test
 test/*
 
+#visual studio code settings
+.vscode/*
+
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
 *.manifest
 *.spec

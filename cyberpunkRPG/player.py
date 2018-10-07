@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 import json, math, os
 from pathlib import Path
+from prettytable import PrettyTable
 from .bag import Bag
 
 statNames = ['INT','RIF','TEC','FRE','FAS','FOR','MOV','COS','EMP']
