@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+
 class Item:
 	def __init__(self, name, qnt=1, value=0, weight=0, type='general'):
 		self.name = name
@@ -24,6 +25,15 @@ class Item:
 
 	def __str__(self):
 		return str(self.qnt) + ' ' + self.name
+
+	def getDict(self):
+		return {
+			'name': self.name,
+			'value': self.value,
+			'weight': self.weight,
+			'qnt': self.qnt,
+			'type': self.type
+		}
 
 class CyberItem(Item):
 	def __init__(self, name, value, hu=0):

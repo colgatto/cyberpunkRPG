@@ -2,9 +2,12 @@
 from pathlib import Path
 from prettytable import PrettyTable
 from .items import Item
+
 class Bag:
 	def __init__(self, content = []):
-		self.content = content
+		self.content = []
+		for item in content:
+			self.content.append(Item(item['name'], item['qnt'], item['value'], item['weight'], item['type']))
 
 	def getWeight(self):
 		size = 0
@@ -14,8 +17,12 @@ class Bag:
 
 	def insert(self, item):
 		if isinstance(item, Item):
-			if self.contain(item) == False and self.contain(item.name) == False:
+			it = self.contain(item)
+			if it == False:
 				self.content.append(item)
+				return True
+			else:
+				it.add(item.qnt)
 				return True
 		return False
 
@@ -30,18 +37,18 @@ class Bag:
 					return bagItem
 		return False
 
-	def add(self, name, qnt = 1):
-		find = self.contain(name)
-		if find:
-			find.add(qnt)
-			return True
-		return False
+	def getItemsByName(self, name):
+		founds = []
+		for item in self.content:
+			if item.name == name:
+				founds.append(item)
+		return founds
 
 	def remove(self,name,qnt):
 		for item in self.content:
-			if item["name"] == name:
-				if qnt <= item["qnt"]:
-					item["qnt"] -= qnt
+			if item.name == name:
+				if qnt <= item.qnt:
+					item.qnt -= qnt
 					return 1
 				return -1
 		return 0
@@ -59,6 +66,12 @@ class Bag:
 
 	def __str__(self):
 		return self.listed()
+
+	def getDict(self):
+		ret = []
+		for item in self.content:
+			ret.append(item.getDict())
+		return ret
 
 class CyberParts(Bag):
 

@@ -85,17 +85,27 @@ class Player:
 			#? CONTROLLARE SE PYTHON PASSA GLI OGGETTI PER VALORE O PER RIFERIMENTO
 			#? NON SI POSSONO MODIFICARE GLI ATTRIBUTI CHE INIZIANO PER '_' (SONO COSTANTI PRIVATE)
 
+	"""
 	def humanity(self):
 		base = self.stat['EMP'] * 10
 		lost = 0
 		for item in self.bag.content:
-			if item['cyber']:
-				lost += item['hu']
+			if item.cyber:
+				lost += item.hu
 		newhu = base - lost
 		return 0 if newhu < 0 else newhu
+	"""
 
 	def run(self):
 		return self.stat['MOV'] * 3
+
+	def insertInBag(self, item):
+		it = self.bag.insert(item)
+		if it == False:
+			return False
+		else:
+			self.saveToJson()
+			return it
 
 	def loadFromJson(self):
 		with open(self.dataPath, 'r') as f:
@@ -111,7 +121,7 @@ class Player:
 				"malus": self.malus,
 				"stat": self.stat,
 				"debuff": self.debuff,
-				"bag": self.bag.content
+				"bag": self.bag.getDict()
 			}, indent=4, sort_keys=False))
 
 	def info(self):
@@ -120,7 +130,7 @@ class Player:
 		t = PrettyTable(['INFO','PERSONAGGIO'])
 		t.add_row(['Nome', self.name])
 		t.add_row(['Stato', self.getStatus()])
-		t.add_row(['umanità', self.humanity()])
+		#t.add_row(['umanità', self.humanity()])#FIXME
 		text.append(t.get_string())
 
 		t = PrettyTable(['Stat', 'Valore'])

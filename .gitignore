@@ -28,7 +28,8 @@ MANIFEST
 # PyInstaller
 #  Usually these files are written by a python script from a template
 #miei test
-test/*
+players/*
+test.py
 
 #visual studio code settings
 .vscode/*
